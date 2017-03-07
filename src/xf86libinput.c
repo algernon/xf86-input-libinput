@@ -1358,7 +1358,7 @@ xf86libinput_handle_absmotion(InputInfoPtr pInfo, struct libinput_event_pointer 
 		return;
 	}
 
-	if ((driver_data->capabilities & CAP_POINTER) == 0)
+	if ((driver_data->capabilities & CAP_POINTER_ABSOLUTE) == 0)
 		return;
 
 	x = libinput_event_pointer_get_absolute_x_transformed(event, TOUCH_AXIS_MAX);
@@ -1611,6 +1611,9 @@ xf86libinput_pick_device(struct xf86libinput_device *shared_device,
 	case LIBINPUT_EVENT_TABLET_TOOL_TIP:
 		needed_cap = CAP_TABLET_TOOL;
 		break;
+  case LIBINPUT_EVENT_POINTER_MOTION_ABSOLUTE:
+    needed_cap = CAP_POINTER_ABSOLUTE;
+    break;
 	default:
 		needed_cap = ~CAP_KEYBOARD;
 		break;
